@@ -19,7 +19,7 @@ public class MenuPizzaSpringApplication {
 
         System.out.println("Pizze: ");
         for (Pizza pi : menu.getPizze()) {
-            System.out.println("tipo: " + pi.getName() + "price: " + pi.getTotPrice() + "calories: " + pi.getTotColories());
+            System.out.println("tipo: " + pi.getName() + " price: " + pi.getTotPrice() + " calories: " + pi.getTotColories());
         }
         System.out.println("Toppings:");
         for (Topping top : menu.getToppings()) {
@@ -29,14 +29,5 @@ public class MenuPizzaSpringApplication {
         for (Drink ice : menu.getDrinks()) {
             System.out.println(ice);
         }
-
-        System.out.println("--------------------xl---------------------");
-        Pizza hawaiian = ctx.getBean("hawaiian",Pizza.class);
-        System.out.println(hawaiian);
-
-        Pizza hawaiianXl = ctx.getBean("hawaiianXl",Pizza.class);
-        System.out.println(hawaiianXl);
-
-
     }
 }

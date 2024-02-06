@@ -6,38 +6,44 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Data
-public class Pizza {
-    private String name;
+public class Pizza extends Item {
     private boolean xl = false;
-    private final String ingredient1 = "Tomato";
-    private final String ingredient2 = "Cheese";
-    private double totColories;
-    private double totPrice;
     private List<Topping> toppings = new ArrayList<Topping>();
 
     public double setTotalPrice() {
+        this.totPrice = 3.50;
         if (!this.toppings.isEmpty()) {
             for (Topping top : toppings) {
-                this.totPrice = 4.99;
-                return this.totPrice += top.getPrice();
+                this.totPrice += top.getTotPrice();
             }
         }
-        return this.totPrice = 4.99;
+        return this.totPrice;
     }
 
     public double setTotalCalories() {
+        this.totColories = 900;
         if (!this.toppings.isEmpty()) {
             for (Topping top : toppings) {
-                this.totColories = 1104;
-                return this.totColories += top.getCalories();
+                this.totColories += top.getTotColories();
             }
         }
-        return this.totColories = 1104;
+        return this.totColories;
     }
 
-    public void setXl (){
+    public void setXl(){
         this.xl = true;
         this.totColories = setTotalCalories() * 1.3;
         this.totPrice = setTotalPrice() +3;
+    }
+
+    public void addTopping (Topping top){
+        this.toppings.add(top);
+        setTotalPrice();
+        setTotalCalories();
+    }
+    public void removeTopping (Topping top){
+        this.toppings.remove(top);
+        setTotalPrice();
+        setTotalCalories();
     }
 }

@@ -1,13 +1,18 @@
 package it.epicode.menuPizzaSpring;
 
-import it.epicode.menuPizzaSpring.bean.Drink;
-import it.epicode.menuPizzaSpring.bean.Menu;
-import it.epicode.menuPizzaSpring.bean.Pizza;
-import it.epicode.menuPizzaSpring.bean.Topping;
+import it.epicode.menuPizzaSpring.bean.*;
+import it.epicode.menuPizzaSpring.enumPack.StatoOrdine;
+import it.epicode.menuPizzaSpring.enumPack.StatoTavolo;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
+@Configuration
+@PropertySource("application.properties")
 public class AppConfigMenu {
 
     //topping
@@ -15,8 +20,8 @@ public class AppConfigMenu {
     public Topping getTopCheese() {
         Topping top = new Topping();
         top.setName("cheese");
-        top.setCalories(92);
-        top.setPrice(0.69);
+        top.setTotColories(92);
+        top.setTotPrice(0.69);
         return top;
     }
 
@@ -24,8 +29,8 @@ public class AppConfigMenu {
     public Topping getTopHam() {
         Topping top = new Topping();
         top.setName("Ham");
-        top.setCalories(35);
-        top.setPrice(0.99);
+        top.setTotColories(35);
+        top.setTotPrice(0.99);
         return top;
     }
 
@@ -33,8 +38,8 @@ public class AppConfigMenu {
     public Topping getTopOnions() {
         Topping top = new Topping();
         top.setName("Onions");
-        top.setCalories(22);
-        top.setPrice(0.69);
+        top.setTotColories(22);
+        top.setTotPrice(0.69);
         return top;
     }
 
@@ -42,8 +47,8 @@ public class AppConfigMenu {
     public Topping getTopPineaple() {
         Topping top = new Topping();
         top.setName("Pineaple");
-        top.setCalories(24);
-        top.setPrice(0.69);
+        top.setTotColories(24);
+        top.setTotPrice(0.69);
         return top;
     }
 
@@ -51,8 +56,16 @@ public class AppConfigMenu {
     public Topping getTopSalami() {
         Topping top = new Topping();
         top.setName("Salami");
-        top.setCalories(86);
-        top.setPrice(0.99);
+        top.setTotColories(86);
+        top.setTotPrice(0.99);
+        return top;
+    }
+    @Bean("tomato")
+    public Topping getTopTomato() {
+        Topping top = new Topping();
+        top.setName("Tomato");
+        top.setTotColories(86);
+        top.setTotPrice(0.99);
         return top;
     }
 
@@ -61,6 +74,8 @@ public class AppConfigMenu {
     public Pizza getMargherita() {
         Pizza pizza = new Pizza();
         pizza.setName("Margherita");
+        List<Topping> toppings = List.of(getTopTomato(),getTopCheese());
+        pizza.setToppings(toppings);
         pizza.setTotalCalories();
         pizza.setTotalPrice();
         return pizza;
@@ -69,8 +84,6 @@ public class AppConfigMenu {
     public Pizza getMargheritaXl() {
         Pizza pizza = new Pizza();
         pizza.setName("MargheritaXl");
-        pizza.setTotalCalories();
-        pizza.setTotalPrice();
         pizza.setXl();
         return pizza;
     }
@@ -79,10 +92,8 @@ public class AppConfigMenu {
     public Pizza getHawaiianXl() {
         Pizza pizza = new Pizza();
         pizza.setName("HawaiianXl");
-        List<Topping> toppings = List.of(getTopPineaple(), getTopHam());
+        List<Topping> toppings = List.of(getTopPineaple(), getTopHam(),getTopTomato(),getTopCheese());
         pizza.setToppings(toppings);
-        pizza.setTotalCalories();
-        pizza.setTotalPrice();
         pizza.setXl();
         return pizza;
     }
@@ -91,7 +102,7 @@ public class AppConfigMenu {
     public Pizza getHawaiian() {
         Pizza pizza = new Pizza();
         pizza.setName("Hawaiian");
-        List<Topping> toppings = List.of(getTopPineaple(), getTopHam());
+        List<Topping> toppings = List.of(getTopPineaple(), getTopHam(),getTopTomato(),getTopCheese());
         pizza.setToppings(toppings);
         pizza.setTotalCalories();
         pizza.setTotalPrice();
@@ -101,7 +112,7 @@ public class AppConfigMenu {
     public Pizza getSalami() {
         Pizza pizza = new Pizza();
         pizza.setName("Salami");
-        List<Topping> toppings = List.of(getTopSalami());
+        List<Topping> toppings = List.of(getTopSalami(),getTopTomato(),getTopCheese());
         pizza.setToppings(toppings);
         pizza.setTotalCalories();
         pizza.setTotalPrice();
@@ -113,8 +124,8 @@ public class AppConfigMenu {
     public Drink getLemonade() {
         Drink drink = new Drink();
         drink.setName("Lemonade");
-        drink.setCalories(128);
-        drink.setPrice(1.29);
+        drink.setTotColories(128);
+        drink.setTotPrice(1.29);
         return drink;
     }
 
@@ -122,8 +133,8 @@ public class AppConfigMenu {
     public Drink getWater() {
         Drink drink = new Drink();
         drink.setName("Water");
-        drink.setCalories(0);
-        drink.setPrice(1.29);
+        drink.setTotColories(0);
+        drink.setTotPrice(1.29);
         return drink;
     }
 
@@ -131,8 +142,8 @@ public class AppConfigMenu {
     public Drink getWine() {
         Drink drink = new Drink();
         drink.setName("Wine");
-        drink.setCalories(607);
-        drink.setPrice(7.49);
+        drink.setTotColories(607);
+        drink.setTotPrice(7.49);
         return drink;
     }
 
@@ -140,13 +151,61 @@ public class AppConfigMenu {
     @Bean("menu")
     public Menu getMenu() {
         Menu menu = new Menu();
-        List<Pizza> pizze = List.of(getMargherita(), getHawaiian(), getSalami());
+        List<Pizza> pizze = List.of(getMargherita(), getHawaiian(), getSalami(),getHawaiianXl(),getMargheritaXl());
         menu.setPizze(pizze);
         List<Topping> toppings = List.of(getTopSalami(), getTopHam(), getTopCheese(), getTopPineaple(), getTopOnions());
         menu.setToppings(toppings);
         List<Drink> drinks = List.of(getLemonade(), getWater(), getWine());
         menu.setDrinks(drinks);
         return menu;
+    }
+
+    //tavoli
+
+    @Bean("tavolo1")
+    public Tavolo getTavolo1() {
+        Tavolo tavolo = new Tavolo();
+        tavolo.setNrTavolo(1);
+        tavolo.setNrCoperti(2);
+        tavolo.setMaxCoperti();
+        tavolo.setStatoTavolo(StatoTavolo.LIBERO);
+        return tavolo;
+    }
+    @Bean("tavolo2")
+    public Tavolo getTavolo2() {
+        Tavolo tavolo = new Tavolo();
+        tavolo.setNrTavolo(2);
+        tavolo.setNrCoperti(4);
+        tavolo.setMaxCoperti();
+        tavolo.setStatoTavolo(StatoTavolo.LIBERO);
+        return tavolo;
+    }
+    @Bean("tavolo3")
+    public Tavolo getTavolo3() {
+        Tavolo tavolo = new Tavolo();
+        tavolo.setNrTavolo(3);
+        tavolo.setNrCoperti(8);
+        tavolo.setMaxCoperti();
+        tavolo.setStatoTavolo(StatoTavolo.LIBERO);
+        return tavolo;
+    }
+
+    //ordine
+    @Bean("ordine1")
+    public Ordine getOrdine1(@Value("${app.coperto}") String coperto) throws Exception {
+        Ordine ordine = new Ordine();
+        List<Item> comanda = List.of(getMargherita(),getMargheritaXl(), getSalami(),getHawaiian(),
+                getWine(),getWine(),getWine(),getWater());
+        ordine.setListaOrdine(comanda);
+//        Tavolo tavolo = getTavolo2();
+        ordine.setTavolo(getTavolo2());
+        ordine.setNrOrdine(1);
+        ordine.setStatoOrdine(StatoOrdine.INCORSO);
+        ordine.setOraOrdine(LocalDateTime.now());
+        ordine.checkCopertiPerTavolo(5);
+        ordine.setCoperto(coperto);
+        ordine.totalCount();
+        return ordine;
     }
 
 
