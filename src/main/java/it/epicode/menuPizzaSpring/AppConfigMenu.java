@@ -19,7 +19,7 @@ public class AppConfigMenu {
     @Bean("cheese")
     public Topping getTopCheese() {
         Topping top = new Topping();
-        top.setName("cheese");
+        top.setName("Cheese");
         top.setTotColories(92);
         top.setTotPrice(0.69);
         return top;
@@ -153,7 +153,7 @@ public class AppConfigMenu {
         Menu menu = new Menu();
         List<Pizza> pizze = List.of(getMargherita(), getHawaiian(), getSalami(),getHawaiianXl(),getMargheritaXl());
         menu.setPizze(pizze);
-        List<Topping> toppings = List.of(getTopSalami(), getTopHam(), getTopCheese(), getTopPineaple(), getTopOnions());
+        List<Topping> toppings = List.of(getTopOnions(),getTopTomato(), getTopCheese(),getTopSalami(), getTopHam(), getTopPineaple());
         menu.setToppings(toppings);
         List<Drink> drinks = List.of(getLemonade(), getWater(), getWine());
         menu.setDrinks(drinks);
@@ -197,12 +197,26 @@ public class AppConfigMenu {
         List<Item> comanda = List.of(getMargherita(),getMargheritaXl(), getSalami(),getHawaiian(),
                 getWine(),getWine(),getWine(),getWater());
         ordine.setListaOrdine(comanda);
-//        Tavolo tavolo = getTavolo2();
         ordine.setTavolo(getTavolo2());
         ordine.setNrOrdine(1);
         ordine.setStatoOrdine(StatoOrdine.INCORSO);
         ordine.setOraOrdine(LocalDateTime.now());
         ordine.checkCopertiPerTavolo(5);
+        ordine.setCoperto(coperto);
+        ordine.totalCount();
+        return ordine;
+    }
+    @Bean("ordine2")
+    public Ordine getOrdine2(@Value("${app.coperto}") String coperto) throws Exception {
+        Ordine ordine = new Ordine();
+        List<Item> comanda = List.of(getMargherita(),getMargheritaXl(), getSalami(),getHawaiian(),
+                getWine(),getWine(),getWater(),getLemonade());
+        ordine.setListaOrdine(comanda);
+        ordine.setTavolo(getTavolo1());
+        ordine.setNrOrdine(1);
+        ordine.setStatoOrdine(StatoOrdine.INCORSO);
+        ordine.setOraOrdine(LocalDateTime.now());
+        ordine.checkCopertiPerTavolo(2);
         ordine.setCoperto(coperto);
         ordine.totalCount();
         return ordine;

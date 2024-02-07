@@ -5,20 +5,17 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.stereotype.Component;
 
+import java.util.logging.Logger;
+
 @Component
 public class Runner1 implements CommandLineRunner {
     @Override
     public void run(String... args) throws Exception {
 
-
+        Logger logger = Logger.getLogger("w5d2");
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigMenu.class);
 
-
-        System.out.println("Hello World!");
         Ordine ordine1 = ctx.getBean("ordine1", Ordine.class);
-        System.out.println(ordine1);
-
-
-
+        logger.info(ordine1.toString());
     }
 }

@@ -8,26 +8,29 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
+import java.util.logging.Logger;
+
 @SpringBootApplication
 public class MenuPizzaSpringApplication {
 
     public static void main(String[] args) {
         SpringApplication.run(MenuPizzaSpringApplication.class, args);
         AnnotationConfigApplicationContext ctx = new AnnotationConfigApplicationContext(AppConfigMenu.class);
+        Logger logger = Logger.getLogger("w5d2");
 
         Menu menu = ctx.getBean("menu", Menu.class);
 
         System.out.println("Pizze: ");
         for (Pizza pi : menu.getPizze()) {
-            System.out.println("tipo: " + pi.getName() + " price: " + pi.getTotPrice() + " calories: " + pi.getTotColories());
+            logger.info("tipo: " + pi.getName() + " price: " + pi.getTotPrice() + " calories: " + pi.getTotColories());
         }
-        System.out.println("Toppings:");
+        logger.info("Toppings:");
         for (Topping top : menu.getToppings()) {
-            System.out.println(top);
+          logger.info(top.toString());
         }
-        System.out.println("Drinks:");
+        logger.info("Drinks:");
         for (Drink ice : menu.getDrinks()) {
-            System.out.println(ice);
+            logger.info(ice.toString());
         }
     }
 }
