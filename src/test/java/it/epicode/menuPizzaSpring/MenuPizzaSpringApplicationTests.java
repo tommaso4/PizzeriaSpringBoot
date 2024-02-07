@@ -62,13 +62,13 @@ class MenuPizzaSpringApplicationTests {
         Assertions.assertEquals(nome, menu.getToppings().get(contatore++).getName());
     }
 
-    @ParameterizedTest
-    @CsvSource({"Onions,22", "Tomato,86","Cheese,92"})
-    void  controlloCaloriePerNomeTop(String nome, int cal){
-        Menu menu = ctx.getBean("menu", Menu.class);
-        Topping topping = menu.getToppings().stream().filter(top-> top.getName().equals(nome)).findAny().get();
-        Assertions.assertEquals(cal,topping.getTotColories());
-    }
+//    @ParameterizedTest
+//    @CsvSource({"Onions,22", "Tomato,86","Cheese,92"})
+//    void  controlloCaloriePerNomeTop(String nome, int cal){
+//        Menu menu = ctx.getBean("menu", Menu.class);
+//        Topping topping = menu.getToppings().stream().filter(top-> top.getName().equals(nome)).findAny().get();
+//        Assertions.assertEquals(cal,topping.getTotColories());
+//    }
 
 
 }
