@@ -52,6 +52,8 @@ class MenuPizzaSpringApplicationTests {
     void verificaDueArray(){ //controlla le grandezze degl'array
         Ordine ordine = ctx.getBean("ordine1", Ordine.class);
         Ordine ordine2 = ctx.getBean("ordine2", Ordine.class);
+        Menu menu = ctx.getBean("menu", Menu.class);
+
         Assertions.assertArrayEquals(ordine2.getListaOrdine().toArray(),ordine.getListaOrdine().toArray());
     }
 
@@ -62,13 +64,13 @@ class MenuPizzaSpringApplicationTests {
         Assertions.assertEquals(nome, menu.getToppings().get(contatore++).getName());
     }
 
-//    @ParameterizedTest
-//    @CsvSource({"Onions,22", "Tomato,86","Cheese,92"})
-//    void  controlloCaloriePerNomeTop(String nome, int cal){
-//        Menu menu = ctx.getBean("menu", Menu.class);
-//        Topping topping = menu.getToppings().stream().filter(top-> top.getName().equals(nome)).findAny().get();
-//        Assertions.assertEquals(cal,topping.getTotColories());
-//    }
+    @ParameterizedTest
+    @CsvSource({"Onions,22", "Tomato,86","Cheese,92"})
+    void  controlloCaloriePerNomeTop(String nome, int cal){
+        Menu menu = ctx.getBean("menu", Menu.class);
+        Topping topping = menu.getToppings().stream().filter(top-> top.getName().equals(nome)).findAny().get();
+        Assertions.assertEquals(cal,topping.getTotColories());
+    }
 
 
 }
